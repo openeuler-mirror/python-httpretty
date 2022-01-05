@@ -1,0 +1,25 @@
+From 3cd5647803ee66ab3e8548fb0903ac9b872a95d1 Mon Sep 17 00:00:00 2001
+From: bzg1107 <preloyalwhite@163.com>
+Date: Wed, 5 Jan 2022 12:48:56 +0800
+Subject: [PATCH] modify python3.9 supportive syntax
+
+---
+ httpretty/core.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/httpretty/core.py b/httpretty/core.py
+index d1aa8d0..eeb55cf 100644
+--- a/httpretty/core.py
++++ b/httpretty/core.py
+@@ -435,7 +435,7 @@ class fakesock(object):
+                 else:
+                     timeout = self.timeout
+                 t.join(timeout)
+-                if t.isAlive():
++                if t.is_alive():
+                     raise socket.timeout
+ 
+             return self.fd
+-- 
+2.30.0
+

@@ -1,6 +1,6 @@
 Name:           python-httpretty
 Version:        0.9.5
-Release:        7
+Release:        8
 Summary:        HTTP Client mocking tool for Python
 License:        MIT
 URL:            https://pypi.org/project/httpretty/
@@ -9,8 +9,11 @@ Source0:        https://files.pythonhosted.org/packages/source/h/httpretty/httpr
 Patch0001:      python-httpretty-fakesock_getpeercert_noconnect.patch
 Patch0002:      0001-Handle-bugs-in-older-urllib3-versions-in-one-of-the-.patch
 Patch0003:      0001-Call-reset-from-setUp-and-tearDown-in-addition-to-en.patch
+%if "%{_arch}" == "riscv64"
 #due to network issue, skip some test for riscv
 Patch0004:      skip_test_due_to_build_platform.patch
+Patch0005:      fix-riscv-time-diff.patch
+%endif riscv
 
 BuildArch:      noarch
 
@@ -48,6 +51,10 @@ LANG=en_US.UTF-8 %{__python3} -m nose -v
 %{python3_sitelib}/httpretty-%{version}-py3.?.egg-info
 
 %changelog
+* Sun Mar 27 2022 YukariChiba <i@0x7f.cc> - 0.9.5-8
+- Remove time item in diff check to pass test for RISC-V
+- Add ifarch macro
+
 * Wed Feb 22 2022 lvxiaoqian <xiaoqian@nj.iscas.ac.cn> - 0.9.5-7
 - bug fix, %ifarch has no effect when BuildArch is noarch
   skip test for riscv

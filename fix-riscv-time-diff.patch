@@ -1,0 +1,38 @@
+diff --color -urN httpretty-0.9.5/tests/functional/test_requests.py httpretty-0.9.5-new/tests/functional/test_requests.py
+--- httpretty-0.9.5/tests/functional/test_requests.py	2018-05-16 19:53:40.000000000 +0800
++++ httpretty-0.9.5-new/tests/functional/test_requests.py	2022-03-27 00:08:17.204332586 +0800
+@@ -104,13 +104,14 @@
+     response = requests.get('http://github.com')
+     expect(response.status_code).to.equal(201)
+ 
+-    expect(dict(response.headers)).to.equal({
++    fixed_headers = dict(response.headers)
++    fixed_headers.pop("date")
++    expect(fixed_headers).to.equal({
+         'content-type': 'text/plain; charset=utf-8',
+         'connection': 'close',
+         'content-length': '35',
+         'status': '201',
+         'server': 'Python/HTTPretty',
+-        'date': now.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+     })
+ 
+ 
+@@ -129,13 +130,15 @@
+ 
+     response = requests.get('http://github.com/foo')
+ 
+-    expect(dict(response.headers)).to.equal({
++    fixed_headers = dict(response.headers)
++    fixed_headers.pop("date")
++
++    expect(fixed_headers).to.equal({
+         'content-type': 'application/json',
+         'connection': 'close',
+         'content-length': '27',
+         'status': '200',
+         'server': 'Apache',
+-        'date': now.strftime('%a, %d %b %Y %H:%M:%S GMT'),
+     })
+ 
+ 
